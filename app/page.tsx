@@ -75,9 +75,23 @@ export default function Home() {
               <span className="text-primary gradient-text">더 나은 읽기, 눈길</span>
             </h1>
             
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground mb-6 max-w-4xl mx-auto leading-relaxed px-4 fade-in-up stagger-2">
-              난독증, ADHD, 읽기 장애를 가진 분들이 텍스트를 쉽게 읽을 수 있도록 돕는 AI 기반 기술
-            </p>
+            <div className="max-w-4xl mx-auto text-center leading-relaxed text-muted-foreground mb-6 space-y-4 px-4 fade-in-up stagger-2">
+              <p className="text-base sm:text-lg md:text-xl">
+                한글 특성에 맞게 설계된 바이오닉 리딩 기술로
+                <br />
+                읽기가 어려운 분들도 쉽고 빠르게 텍스트를 이해할 수 있습니다.
+              </p>
+              
+              <p className="text-base sm:text-lg">
+                AI가 문맥을 분석하여 중요한 부분을 강조하고,
+                <br />
+                개인의 읽기 패턴에 맞춤형으로 최적화됩니다.
+              </p>
+              
+              <p className="text-sm text-muted-foreground/80">
+                난독증, ADHD, 집중력 부족으로 읽기에 어려움을 겪는 분들을 위한 도구입니다.
+              </p>
+            </div>
           </div>
 
           {/* 인터랙티브 데모 */}
@@ -172,10 +186,10 @@ export default function Home() {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                읽기 어려움, 생각보다 흔합니다
+                읽기 지원이 필요한 현황
               </h2>
               <p className="text-xl text-muted-foreground">
-                과학적 연구로 입증된 통계와 현실
+                국내외 연구 데이터 기반 통계
               </p>
             </div>
             
@@ -250,10 +264,10 @@ export default function Home() {
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12 sm:mb-16">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 px-2">
-                다양한 활용 사례
+                주요 활용 분야
               </h2>
               <p className="text-lg sm:text-xl text-muted-foreground px-4">
-                어떤 상황에서도 도움이 되는 바이오닉 리딩
+                실제 사용자들의 피드백을 기반으로 한 효과 검증 사례
               </p>
             </div>
             
@@ -539,10 +553,10 @@ export default function Home() {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                세상을 바꾸는 기술
+                핵심 기술 구성
               </h2>
               <p className="text-xl text-muted-foreground">
-                AI와 언어학을 결합한 혁신적 접근
+                AI 기반 한국어 분석과 개인화 알고리즘
               </p>
             </div>
             
@@ -558,8 +572,8 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">시각적 고정점 생성</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  각 단어의 핵심 부분을 강조하여 
-                  눈이 자연스럽게 텍스트를 따라가도록 합니다
+                  단어별 중요도 분석을 통해 시선이 집중되는 
+                  지점을 시각적으로 표시하여 읽기 효율을 향상시킵니다
                 </p>
               </div>
               
@@ -574,8 +588,8 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">언어별 최적화</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  한국어와 영어의 구조적 차이를 분석하여
-                  각 언어에 맞는 최적의 알고리즘을 적용합니다
+                  한글의 음절 구조와 영어의 형태소 차이를 고려하여
+                  언어적 특성에 맞는 처리 알고리즘을 적용합니다
                 </p>
               </div>
               
@@ -590,8 +604,8 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">AI 기반 개인화</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  개인의 읽기 패턴과 선호도를 학습하여
-                  맞춤형 변환 경험을 제공합니다
+                  사용자의 읽기 속도와 이해도 패턴을 분석하여
+                  개인별 최적화된 강조 수준을 적용합니다
                 </p>
               </div>
             </div>

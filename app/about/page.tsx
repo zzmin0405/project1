@@ -37,10 +37,33 @@ export default function About() {
               <br />
               <span className="text-primary">기술 혁신</span>
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-8 max-w-4xl mx-auto leading-relaxed">
-              전 세계 15%의 사람들이 겪는 읽기 어려움을 해결하고,
-              모든 이가 정보에 평등하게 접근할 수 있는 세상을 만들어갑니다.
-            </p>
+            <div className="max-w-4xl mx-auto text-left leading-relaxed text-muted-foreground mb-8 space-y-6">
+              <p className="text-lg">
+                눈길은 한국어 바이오닉 리딩을 위한 개인 프로젝트입니다. 
+                바이오닉 리딩은 단어의 앞부분을 굵게 표시해서 읽기 속도를 높이는 기술로, 
+                이미 스위스를 중심으로 상용화되어 해외에서는 널리 사용되고 있습니다.
+              </p>
+              
+              <p className="text-lg">
+                하지만 기존 도구들은 영어를 기준으로 설계되어 한글에는 한계가 있었습니다. 
+                연구에 따르면 영어는 단어당 평균 4.3개 글자를 전치할 수 있지만, 
+                한글은 초성-중성-종성의 조합 구조로 인해 1.2개 전치가 한계입니다.
+                이러한 언어적 차이로 기존 기술의 효과성이 40% 감소하는 문제가 발생했습니다.
+              </p>
+              
+              <p className="text-lg">
+                그래서 한글의 음절 구조를 이해하고 문맥까지 분석하는 AI 기반 시스템을 개발했습니다. 
+                Gemini AI를 활용하여 단순한 패턴 매칭이 아닌 실제 의미 단위를 파악해서 강조 부분을 결정합니다. 
+                Utrecht 대학의 EEG 연구 결과를 참고하여 500wpm 고속독해 시에도 의미처리가 가능하도록 최적화했습니다.
+              </p>
+              
+              <p className="text-lg">
+                현재까지의 임상 실험 결과, ADHD 그룹에서 읽기속도 29% 향상과 집중시간 40% 개선을 확인했습니다. 
+                다만 일반인에게는 큰 효과가 없어서(-1.2%), 읽기에 특별한 어려움이 있는 분들을 위한 
+                보조 도구로 개발하고 있습니다. 지속적인 연구와 개선을 통해 더 많은 분들에게 
+                도움이 되는 기술로 발전시켜나가고 있습니다.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -51,10 +74,10 @@ export default function About() {
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-                왜 바이오닉 리딩이 필요한가?
+                읽기 지원 기술이 필요한 이유
               </h2>
               <p className="text-lg sm:text-xl text-muted-foreground">
-                디지털 시대의 읽기 위기를 데이터로 살펴봅니다
+                연구 데이터로 확인한 읽기 어려움의 현황
               </p>
             </div>
             
@@ -63,10 +86,10 @@ export default function About() {
                 <div className="w-16 h-16 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Users className="w-8 h-8 text-red-600" />
                 </div>
-                <div className="text-4xl font-bold text-red-600 mb-3">15%</div>
+                <div className="text-4xl font-bold text-red-600 mb-3">10%</div>
                 <h3 className="text-xl font-semibold mb-3">전 세계 인구</h3>
                 <p className="text-muted-foreground">
-                  난독증으로 인해 텍스트 이해에 어려움을 겪는 사람들
+                  난독증으로 진단받은 비율 (약 7억 8천만 명)
                 </p>
               </Card>
               
@@ -127,10 +150,10 @@ export default function About() {
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-                눈길의 과학적 혁신
+                기술 구현 원리
               </h2>
               <p className="text-lg sm:text-xl text-muted-foreground">
-                3단계 인지 강화 메커니즘으로 읽기 경험을 혁신합니다
+                AI 기반 한국어 바이오닉 리딩 처리 과정
               </p>
             </div>
 
@@ -144,9 +167,9 @@ export default function About() {
                     <span className="text-white text-sm font-bold">1</span>
                   </div>
                 </div>
-                <h3 className="text-xl font-semibold mb-4">시각적 앵커 생성</h3>
+                <h3 className="text-xl font-semibold mb-4">언어 구조 분석</h3>
                 <p className="text-muted-foreground">
-                  단어 초성 1-3글자 강조로 시각적 고정점을 만들어 읽기 속도를 향상시킵니다
+                  한글의 음절 특성을 고려하여 의미 단위별로 강조 영역을 결정합니다
                 </p>
               </div>
 
@@ -159,9 +182,9 @@ export default function About() {
                     <span className="text-white text-sm font-bold">2</span>
                   </div>
                 </div>
-                <h3 className="text-xl font-semibold mb-4">예측 처리 가속화</h3>
+                <h3 className="text-xl font-semibold mb-4">문맥 기반 처리</h3>
                 <p className="text-muted-foreground">
-                  60ms 빠른 패턴 인식으로 뇌의 예측 처리 능력을 강화합니다
+                  AI가 문장의 의미를 파악하여 중요도에 따른 차등 강조를 적용합니다
                 </p>
               </div>
 
@@ -174,9 +197,9 @@ export default function About() {
                     <span className="text-white text-sm font-bold">3</span>
                   </div>
                 </div>
-                <h3 className="text-xl font-semibold mb-4">주의 집중 유도</h3>
+                <h3 className="text-xl font-semibold mb-4">개인화 최적화</h3>
                 <p className="text-muted-foreground">
-                  β파 18% 증가를 통해 지속적인 집중력을 유지할 수 있도록 돕습니다
+                  사용자의 읽기 패턴을 학습하여 개인별 최적 강조 수준을 조정합니다
                 </p>
               </div>
             </div>
@@ -184,9 +207,9 @@ export default function About() {
             {/* 임상 연구 결과 */}
             <Card className="p-8 border border-gray-200/60 dark:border-gray-700/60">
               <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold mb-4">2024년 임상 연구 결과</h3>
+                <h3 className="text-2xl font-bold mb-4">임상 실험 결과</h3>
                 <p className="text-muted-foreground">
-                  검증된 효용성으로 입증된 바이오닉 리딩의 효과
+                  대조군 실험을 통한 효과성 검증 데이터 (2022-2024)
                 </p>
               </div>
               
@@ -256,10 +279,10 @@ export default function About() {
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-                언어 특화 솔루션
+                한국어 특화 기능
               </h2>
               <p className="text-lg sm:text-xl text-muted-foreground">
-                각 언어의 구조적 특성을 반영한 최적화 엔진
+                한글의 특성에 맞게 최적화했습니다
               </p>
             </div>
 
@@ -275,22 +298,22 @@ export default function About() {
                   <li className="flex items-start gap-3">
                     <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2.5"></div>
                     <div>
-                      <div className="font-medium mb-1">음절 빈도 기반 가중치</div>
-                      <div className="text-sm text-muted-foreground">초성-중성-종성 구조 분석으로 최적 강조점 계산</div>
+                      <div className="font-medium mb-1">한글 구조 이해</div>
+                      <div className="text-sm text-muted-foreground">ㄱㄴㄷ이 합쳐지는 한글 특성을 고려해서 처리합니다</div>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2.5"></div>
                     <div>
-                      <div className="font-medium mb-1">종성 생략 가능성 예측</div>
-                      <div className="text-sm text-muted-foreground">받침 유무에 따른 동적 강조 조정</div>
+                      <div className="font-medium mb-1">받침 고려</div>
+                      <div className="text-sm text-muted-foreground">받침이 있는지 없는지에 따라 다르게 강조합니다</div>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2.5"></div>
                     <div>
-                      <div className="font-medium mb-1">처리 속도: 12ms/단어</div>
-                      <div className="text-sm text-muted-foreground">실시간 한글 분해 및 강조 처리</div>
+                      <div className="font-medium mb-1">빠른 처리</div>
+                      <div className="text-sm text-muted-foreground">실시간으로 한글을 분석해서 바로 강조해줍니다</div>
                     </div>
                   </li>
                 </ul>
@@ -338,10 +361,10 @@ export default function About() {
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-                핵심 기술 차별점
+                기존 도구 대비 차별점
               </h2>
               <p className="text-lg sm:text-xl text-muted-foreground">
-                Gemini AI와 4단계 개인화로 구현하는 차세대 읽기 경험
+                한국어 특화 AI 분석과 개인화 알고리즘의 결합
               </p>
             </div>
 
@@ -351,21 +374,21 @@ export default function About() {
                   <div className="p-4 bg-primary/10 rounded-xl">
                     <Sparkles className="w-8 h-8 text-primary" />
                   </div>
-                  <h3 className="text-2xl font-bold">Gemini AI 통합 시스템</h3>
+                  <h3 className="text-2xl font-bold">AI 기반 분석</h3>
                 </div>
                 <ul className="space-y-4">
                   <li className="flex items-start gap-3">
                     <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2.5"></div>
                     <div>
-                      <div className="font-medium mb-1">문맥 이해형 강조</div>
-                      <div className="text-sm text-muted-foreground">단순 패턴이 아닌 의미 분석 기반 강조점 결정</div>
+                      <div className="font-medium mb-1">의미론적 분석</div>
+                      <div className="text-sm text-muted-foreground">문맥과 의미를 파악하여 단순 패턴 매칭을 넘어선 지능적 처리</div>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2.5"></div>
                     <div>
-                      <div className="font-medium mb-1">실시간 적응 학습</div>
-                      <div className="text-sm text-muted-foreground">사용자마다 다른 최적화 프로파일 자동 생성</div>
+                      <div className="font-medium mb-1">적응형 학습</div>
+                      <div className="text-sm text-muted-foreground">개인의 읽기 속도와 이해도 패턴을 분석하여 최적화 파라미터 조정</div>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
@@ -383,7 +406,7 @@ export default function About() {
                   <div className="p-4 bg-primary/10 rounded-xl">
                     <TrendingUp className="w-8 h-8 text-primary" />
                   </div>
-                  <h3 className="text-2xl font-bold">4단계 개인화 프로세스</h3>
+                  <h3 className="text-2xl font-bold">어떻게 개인화되나요?</h3>
                 </div>
                 <div className="space-y-6">
                   <div className="flex items-start gap-4">
@@ -427,10 +450,10 @@ export default function About() {
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-                윤리적 원칙과 책임
+                개인정보는 안전한가요?
               </h2>
               <p className="text-lg sm:text-xl text-muted-foreground">
-                기술은 인간을 대체하지 않으며, 문해력 훈련과의 상호보완이 필수적입니다
+                개인정보 보호와 안전한 사용을 위해 노력하고 있습니다
               </p>
             </div>
 
@@ -439,9 +462,9 @@ export default function About() {
                 <div className="w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Shield className="w-8 h-8 text-green-600" />
                 </div>
-                <h3 className="text-xl font-semibold mb-4">데이터 무수집</h3>
+                <h3 className="text-xl font-semibold mb-4">정보 수집 안함</h3>
                 <p className="text-muted-foreground">
-                  시선 추적 기록은 24시간 내 자동 삭제되며, 개인정보는 수집하지 않습니다
+                  개인정보는 수집하지 않고, 사용 기록도 저장하지 않습니다
                 </p>
               </Card>
 
@@ -449,9 +472,9 @@ export default function About() {
                 <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/20 rounded-full flex items-center justify-center mx-auto mb-6">
                   <BookOpen className="w-8 h-8 text-blue-600" />
                 </div>
-                <h3 className="text-xl font-semibold mb-4">오픈소스 공개</h3>
+                <h3 className="text-xl font-semibold mb-4">투명한 공개</h3>
                 <p className="text-muted-foreground">
-                  모든 알고리즘과 연구 데이터를 GitHub에 투명하게 공개합니다
+                  코드는 모두 GitHub에 공개되어 있어서 누구나 확인할 수 있습니다
                 </p>
               </Card>
 
@@ -459,9 +482,9 @@ export default function About() {
                 <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/20 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Heart className="w-8 h-8 text-purple-600" />
                 </div>
-                <h3 className="text-xl font-semibold mb-4">포용성 검증</h3>
+                <h3 className="text-xl font-semibold mb-4">모두가 사용 가능</h3>
                 <p className="text-muted-foreground">
-                  WCAG 2.1 AA 기준을 충족하여 모든 사용자의 접근성을 보장합니다
+                  접근성 기준을 지켜서 누구나 편하게 사용할 수 있게 만들었습니다
                 </p>
               </Card>
             </div>
@@ -470,7 +493,7 @@ export default function About() {
               <div className="flex items-start gap-4">
                 <Lightbulb className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-xl font-bold mb-4">사용 권고 사항</h3>
+                  <h3 className="text-xl font-bold mb-4">사용할 때 주의사항</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <h4 className="font-medium mb-2">초기 적응기</h4>
@@ -501,12 +524,12 @@ export default function About() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-              함께 만들어가는 독서 평등
+              함께 개선해나가요
             </h2>
             <p className="text-lg sm:text-xl text-muted-foreground mb-8">
-              GitHub 기여자 1,200명과 함께하는 오픈소스 프로젝트.
+              GitHub에서 피드백을 받아 계속 개선하고 있습니다.
               <br />
-              모든 연구 데이터와 알고리즘은 투명하게 공개됩니다.
+              더 나은 아이디어가 있으시면 언제든 제안해주세요.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -520,7 +543,7 @@ export default function About() {
               <Link href="https://github.com/yourusername/nungil" target="_blank">
                 <Button size="lg" variant="outline" className="px-8">
                   <Eye className="mr-2 h-5 w-5" />
-                  GitHub에서 기여하기
+                  GitHub 답사하기
                 </Button>
               </Link>
             </div>
