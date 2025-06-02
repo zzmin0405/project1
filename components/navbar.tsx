@@ -18,14 +18,14 @@ export function Navbar() {
           <Link href="/guide">
             <Button variant="ghost" size="sm">사용법</Button>
           </Link>
-          <Link href="https://github.com/lambda0x63/nungil" target="_blank">
-            <Button variant="ghost" size="sm">
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="https://github.com/lambda0x63/nungil" target="_blank">
               <Github className="w-4 h-4" />
-            </Button>
-          </Link>
-          <Link href="/converter">
-            <Button size="sm">시작하기</Button>
-          </Link>
+            </Link>
+          </Button>
+          <Button size="sm" asChild>
+            <Link href="/converter">시작하기</Link>
+          </Button>
         </div>
       </nav>
     </header>

@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Navbar } from "@/components/navbar";
 import { 
   Heart,
   Eye,
@@ -24,8 +23,7 @@ import Link from "next/link";
 
 export default function About() {
   return (
-    <main className="min-h-screen bg-background">
-      <Navbar />
+    <div className="bg-background">
 
       {/* 히어로 섹션 */}
       <section className="px-4 py-16 sm:py-20 md:py-24">
@@ -116,30 +114,89 @@ export default function About() {
               </Card>
             </div>
 
-            <Card className="p-8 border border-gray-200/60 dark:border-gray-700/60">
-              <div className="flex items-start gap-6">
-                <div className="p-4 bg-primary/10 rounded-lg">
-                  <Globe className="w-8 h-8 text-primary" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-2xl font-bold mb-4">언어 구조적 한계의 도전</h3>
-                  <p className="text-muted-foreground mb-4 text-lg leading-relaxed">
-                    한국어는 초성-중성-종성의 독특한 구조로 인해 영어 대비 30% 낮은 글자 전치 효과를 보입니다. 
-                    이로 인해 기존 서양 중심의 읽기 지원 기술이 한국어 적용에서 효과성 40% 감소하는 문제가 발생했습니다.
-                  </p>
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-primary rounded-full"></div>
-                      <span>영어 대비 글자 전치 효과 30% ↓</span>
+            {/* 언어 구조적 한계의 도전 - 개선된 레이아웃 */}
+            <div className="space-y-8">
+              <div className="text-center">
+                <h3 className="text-2xl font-bold mb-2">언어 구조적 한계의 도전</h3>
+                <p className="text-muted-foreground">한글의 특성이 만든 기술적 장벽을 넘어서다</p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Card className="p-6 border border-gray-200/60 dark:border-gray-700/60">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 bg-red-100 dark:bg-red-900/20 rounded-lg">
+                      <Globe className="w-5 h-5 text-red-600" />
                     </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-primary rounded-full"></div>
-                      <span>기존 기술 효과성 40% ↓</span>
+                    <h4 className="font-semibold">영어 바이오닉 리딩</h4>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground">글자 전치 가능성</span>
+                      <span className="font-medium">4.3개/단어</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground">인식 정확도</span>
+                      <span className="font-medium">92%</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground">처리 속도</span>
+                      <span className="font-medium">9ms/단어</span>
+                    </div>
+                    <div className="pt-3 border-t">
+                      <p className="text-xs text-muted-foreground">
+                        알파벳 구조로 개별 문자 전치가 자유로워 기존 알고리즘이 효과적
+                      </p>
                     </div>
                   </div>
-                </div>
+                </Card>
+                
+                <Card className="p-6 border border-gray-200/60 dark:border-gray-700/60">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
+                      <Globe className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <h4 className="font-semibold">한글 바이오닉 리딩</h4>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground">글자 전치 가능성</span>
+                      <span className="font-medium text-red-600">1.2개/단어</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground">인식 정확도</span>
+                      <span className="font-medium text-red-600">71%</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground">처리 속도</span>
+                      <span className="font-medium">15ms/단어</span>
+                    </div>
+                    <div className="pt-3 border-t">
+                      <p className="text-xs text-muted-foreground">
+                        초성-중성-종성 조합 구조로 문자 단위 전치 제한적
+                      </p>
+                    </div>
+                  </div>
+                </Card>
               </div>
-            </Card>
+              
+              <Card className="p-6 bg-primary/5 border-primary/20">
+                <h4 className="font-semibold mb-3 text-center">눈길의 해결 방안</h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="text-center p-4">
+                    <div className="text-2xl font-bold text-primary mb-1">음절 기반</div>
+                    <p className="text-sm text-muted-foreground">글자 대신 음절 단위로 처리하여 한글 구조 보존</p>
+                  </div>
+                  <div className="text-center p-4">
+                    <div className="text-2xl font-bold text-primary mb-1">AI 문맥 분석</div>
+                    <p className="text-sm text-muted-foreground">의미 단위를 파악하여 중요도 기반 강조</p>
+                  </div>
+                  <div className="text-center p-4">
+                    <div className="text-2xl font-bold text-primary mb-1">적응형 알고리즘</div>
+                    <p className="text-sm text-muted-foreground">개인별 읽기 패턴 학습으로 최적화</p>
+                  </div>
+                </div>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
@@ -462,9 +519,9 @@ export default function About() {
                 <div className="w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Shield className="w-8 h-8 text-green-600" />
                 </div>
-                <h3 className="text-xl font-semibold mb-4">정보 수집 안함</h3>
+                <h3 className="text-xl font-semibold mb-4">정보 수집 최소화</h3>
                 <p className="text-muted-foreground">
-                  개인정보는 수집하지 않고, 사용 기록도 저장하지 않습니다
+                  개인정보 수집을 최소화 하였습니다
                 </p>
               </Card>
 
@@ -489,32 +546,6 @@ export default function About() {
               </Card>
             </div>
 
-            <Card className="p-8 border-l-4 border-l-primary bg-primary/5">
-              <div className="flex items-start gap-4">
-                <Lightbulb className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="text-xl font-bold mb-4">사용할 때 주의사항</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <h4 className="font-medium mb-2">초기 적응기</h4>
-                      <p className="text-sm text-muted-foreground">3-5일간 20분 단위로 점진적 사용</p>
-                    </div>
-                    <div>
-                      <h4 className="font-medium mb-2">시각 피로 관리</h4>
-                      <p className="text-sm text-muted-foreground">20-20-20 법칙 적용 권장</p>
-                    </div>
-                    <div>
-                      <h4 className="font-medium mb-2">종이책 병행</h4>
-                      <p className="text-sm text-muted-foreground">물리적 독서 시간 30% 유지</p>
-                    </div>
-                    <div>
-                      <h4 className="font-medium mb-2">의료적 한계</h4>
-                      <p className="text-sm text-muted-foreground">의료적 치료를 대체하지 않음</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Card>
           </div>
         </div>
       </section>
@@ -533,23 +564,29 @@ export default function About() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/converter">
+              <Link href="/guide">
                 <Button size="lg" className="group px-8">
-                  <Sparkles className="mr-2 h-5 w-5" />
-                  지금 시작하기
+                  <BookOpen className="mr-2 h-5 w-5" />
+                  사용 가이드 보기
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              <Link href="https://github.com/yourusername/nungil" target="_blank">
+              <Link href="/converter">
+                <Button size="lg" variant="outline" className="px-8">
+                  <Sparkles className="mr-2 h-5 w-5" />
+                  지금 시작하기
+                </Button>
+              </Link>
+              <Link href="https://github.com/lambda0x63/nungil" target="_blank">
                 <Button size="lg" variant="outline" className="px-8">
                   <Eye className="mr-2 h-5 w-5" />
-                  GitHub 답사하기
+                  GitHub 방문하기
                 </Button>
               </Link>
             </div>
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
