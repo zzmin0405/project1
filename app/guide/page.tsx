@@ -129,7 +129,7 @@ export default function Guide() {
                       </li>
                       <li className="flex items-start gap-2">
                         <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2"></div>
-                        <span>강조 강도를 '낮음'으로 설정</span>
+                        <span>강조 강도를 &apos;낮음&apos;으로 설정</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2"></div>
@@ -147,7 +147,7 @@ export default function Guide() {
                       </li>
                       <li className="flex items-start gap-2">
                         <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2"></div>
-                        <span>강조 강도를 '보통'으로 점진 조정</span>
+                        <span>강조 강도를 &apos;보통&apos;으로 점진 조정</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2"></div>

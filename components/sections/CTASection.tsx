@@ -26,10 +26,12 @@ export function CTASection() {
                 <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="w-full sm:w-auto px-6 sm:px-8">
-              <BookOpen className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-              사용방법 보기
-            </Button>
+            <Link href="/guide" className="w-full sm:w-auto">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto px-6 sm:px-8">
+                <BookOpen className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                사용방법 보기
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

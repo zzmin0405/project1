@@ -16,8 +16,7 @@ import {
   TrendingUp,
   Globe,
   Shield,
-  Clock,
-  Lightbulb
+  Clock
 } from "lucide-react";
 import Link from "next/link";
 
@@ -33,7 +32,7 @@ export default function About() {
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
               읽기의 평등을 위한
               <br />
-              <span className="text-primary">기술 혁신</span>
+              <span className="text-primary">눈길</span>
             </h1>
             <div className="max-w-4xl mx-auto text-left leading-relaxed text-muted-foreground mb-8 space-y-6">
               <p className="text-lg">

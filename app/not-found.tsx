@@ -1,5 +1,7 @@
 'use client'
 
+import Link from "next/link";
+
 export default function NotFound() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background">
@@ -13,12 +15,12 @@ export default function NotFound() {
         </div>
         
         <div className="space-y-3">
-          <a
+          <Link
             href="/"
             className="inline-block w-full px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors text-center"
           >
             홈으로 돌아가기
-          </a>
+          </Link>
           
           <button
             onClick={() => window.history.back()}
