@@ -69,20 +69,20 @@ export default function Home() {
       <section className="px-4 py-12 sm:py-16 md:py-24">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12 sm:mb-16">
-            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight px-2">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight px-2 fade-in-up">
               모든 사람을 위한
               <br />
-              <span className="text-primary">더 나은 읽기, 눈길</span>
+              <span className="text-primary gradient-text">더 나은 읽기, 눈길</span>
             </h1>
             
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground mb-6 max-w-4xl mx-auto leading-relaxed px-4">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground mb-6 max-w-4xl mx-auto leading-relaxed px-4 fade-in-up stagger-2">
               난독증, ADHD, 읽기 장애를 가진 분들이 텍스트를 쉽게 읽을 수 있도록 돕는 AI 기반 기술
             </p>
           </div>
 
           {/* 인터랙티브 데모 */}
-          <div className="relative mb-12 sm:mb-16">
-            <Card className="overflow-hidden border-2 mx-2 sm:mx-0">
+          <div className="relative mb-12 sm:mb-16 fade-in-up stagger-3">
+            <Card className="overflow-hidden border-2 mx-2 sm:mx-0 hover-lift">
               <CardContent className="p-0">
                 <div 
                   ref={demoRef}
@@ -149,15 +149,15 @@ export default function Home() {
             </Card>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 fade-in-up stagger-4">
             <Link href="/converter" className="w-full sm:w-auto">
-              <Button size="lg" className="w-full sm:w-auto px-6 sm:px-8">
+              <Button size="lg" className="w-full sm:w-auto px-6 sm:px-8 hover-lift">
                 <Zap className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                 지금 시작하기
               </Button>
             </Link>
             <Link href="https://github.com/yourusername/nungil" target="_blank" className="w-full sm:w-auto">
-              <Button size="lg" variant="outline" className="w-full sm:w-auto px-6 sm:px-8">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto px-6 sm:px-8 hover-lift">
                 <Eye className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                 소스코드 보기
               </Button>
@@ -180,8 +180,8 @@ export default function Home() {
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-12 sm:mb-16 px-2 sm:px-0">
-              <Card className="text-center p-6 sm:p-8 border border-gray-200/60 dark:border-gray-700/60 hover:border-primary/30 transition-all duration-300 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
-                <div className="text-4xl sm:text-5xl font-bold text-primary mb-4">10%</div>
+              <Card className="text-center p-6 sm:p-8 border border-gray-200/60 dark:border-gray-700/60 hover:border-primary/30 transition-all duration-300 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm hover-lift scale-in stagger-1">
+                <div className="text-4xl sm:text-5xl font-bold text-primary mb-4 bounce-in">10%</div>
                 <h3 className="font-semibold mb-3 text-base sm:text-lg">전 세계 인구</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   난독증을 겪고 있는 비율<br />
@@ -189,8 +189,8 @@ export default function Home() {
                 </p>
               </Card>
               
-              <Card className="text-center p-6 sm:p-8 border border-gray-200/60 dark:border-gray-700/60 hover:border-primary/30 transition-all duration-300 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
-                <div className="text-4xl sm:text-5xl font-bold text-primary mb-4">27%</div>
+              <Card className="text-center p-6 sm:p-8 border border-gray-200/60 dark:border-gray-700/60 hover:border-primary/30 transition-all duration-300 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm hover-lift scale-in stagger-2">
+                <div className="text-4xl sm:text-5xl font-bold text-primary mb-4 bounce-in stagger-1">27%</div>
                 <h3 className="font-semibold mb-3 text-base sm:text-lg">집중력 향상</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   특정 집단(ADHD, 학습장애)에서<br />
@@ -198,8 +198,8 @@ export default function Home() {
                 </p>
               </Card>
               
-              <Card className="text-center p-6 sm:p-8 border border-gray-200/60 dark:border-gray-700/60 hover:border-primary/30 transition-all duration-300 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
-                <div className="text-4xl sm:text-5xl font-bold text-primary mb-4">35%</div>
+              <Card className="text-center p-6 sm:p-8 border border-gray-200/60 dark:border-gray-700/60 hover:border-primary/30 transition-all duration-300 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm hover-lift scale-in stagger-3">
+                <div className="text-4xl sm:text-5xl font-bold text-primary mb-4 bounce-in stagger-2">35%</div>
                 <h3 className="font-semibold mb-3 text-base sm:text-lg">체감 속도 향상</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   초기 사용자 피드백 기준<br />
@@ -207,8 +207,8 @@ export default function Home() {
                 </p>
               </Card>
               
-              <Card className="text-center p-6 sm:p-8 border border-gray-200/60 dark:border-gray-700/60 hover:border-primary/30 transition-all duration-300 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
-                <div className="text-4xl sm:text-5xl font-bold text-primary mb-4">3M</div>
+              <Card className="text-center p-6 sm:p-8 border border-gray-200/60 dark:border-gray-700/60 hover:border-primary/30 transition-all duration-300 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm hover-lift scale-in stagger-4">
+                <div className="text-4xl sm:text-5xl font-bold text-primary mb-4 bounce-in stagger-3">3M</div>
                 <h3 className="font-semibold mb-3 text-base sm:text-lg">국내 필요 인구</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   인구의 약 6%<br />
@@ -258,7 +258,7 @@ export default function Home() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-2 sm:px-0">
-              <Card className="p-8 hover:shadow-lg transition-all duration-300 border border-gray-200/60 dark:border-gray-700/60">
+              <Card className="p-8 hover:shadow-lg transition-all duration-300 border border-gray-200/60 dark:border-gray-700/60 hover-lift fade-in-left stagger-1">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="p-3 bg-primary/10 rounded-lg">
                     <BookOpen className="w-6 h-6 text-primary" />
@@ -281,7 +281,7 @@ export default function Home() {
                 </div>
               </Card>
               
-              <Card className="p-8 hover:shadow-lg transition-all duration-300 border border-gray-200/60 dark:border-gray-700/60">
+              <Card className="p-8 hover:shadow-lg transition-all duration-300 border border-gray-200/60 dark:border-gray-700/60 hover-lift fade-in-right stagger-1">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="p-3 bg-primary/10 rounded-lg">
                     <Users className="w-6 h-6 text-primary" />
@@ -304,7 +304,7 @@ export default function Home() {
                 </div>
               </Card>
               
-              <Card className="p-8 hover:shadow-lg transition-all duration-300 border border-gray-200/60 dark:border-gray-700/60">
+              <Card className="p-8 hover:shadow-lg transition-all duration-300 border border-gray-200/60 dark:border-gray-700/60 hover-lift fade-in-left stagger-2">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="p-3 bg-primary/10 rounded-lg">
                     <Brain className="w-6 h-6 text-primary" />
@@ -327,7 +327,7 @@ export default function Home() {
                 </div>
               </Card>
               
-              <Card className="p-8 hover:shadow-lg transition-all duration-300 border border-gray-200/60 dark:border-gray-700/60">
+              <Card className="p-8 hover:shadow-lg transition-all duration-300 border border-gray-200/60 dark:border-gray-700/60 hover-lift fade-in-right stagger-2">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="p-3 bg-primary/10 rounded-lg">
                     <Heart className="w-6 h-6 text-primary" />
