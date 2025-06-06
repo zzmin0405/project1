@@ -360,10 +360,10 @@ export default function Guide() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/converter">
+              <Link href="/start">
                 <Button size="lg" className="group px-8">
                   <Sparkles className="mr-2 h-5 w-5" />
-                  텍스트 변환 시작하기
+                  지금 시작하기
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>

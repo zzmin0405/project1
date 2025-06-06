@@ -19,10 +19,10 @@ export function CTASection() {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-6 sm:mb-8 px-4">
-            <Link href="/converter" className="w-full sm:w-auto">
+            <Link href="/start" className="w-full sm:w-auto">
               <Button size="lg" className="group w-full sm:w-auto px-6 sm:px-8">
                 <Sparkles className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-                텍스트 변환하기
+                지금 시작하기
                 <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>

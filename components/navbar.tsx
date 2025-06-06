@@ -24,7 +24,7 @@ export function Navbar() {
             </Link>
           </Button>
           <Button size="sm" asChild>
-            <Link href="/converter">시작하기</Link>
+            <Link href="/start">시작하기</Link>
           </Button>
         </div>
       </nav>

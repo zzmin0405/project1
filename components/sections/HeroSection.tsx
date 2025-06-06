@@ -119,7 +119,7 @@ export function HeroSection() {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 fade-in-up stagger-4">
-          <Link href="/converter" className="w-full sm:w-auto">
+          <Link href="/start" className="w-full sm:w-auto">
             <Button size="lg" className="w-full sm:w-auto px-6 sm:px-8 hover-lift">
               <Zap className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
               지금 시작하기

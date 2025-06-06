@@ -1,6 +1,12 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY!);
+
+// 언어 감지
+function detectLanguage(text: string): 'ko' | 'en' {
+  const koreanRegex = /[\uAC00-\uD7A3]/;
+  return koreanRegex.test(text) ? 'ko' : 'en';
+}
 
 export async function convertToBionic(
   text: string, 
@@ -9,39 +15,54 @@ export async function convertToBionic(
     language: 'ko' | 'en' | 'auto';
   }
 ) {
+  const detectedLanguage = settings.language === 'auto' ? detectLanguage(text) : settings.language;
   const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-  
-  const prompt = `
-당신은 바이오닉 리딩 전문가입니다. 다음 텍스트를 바이오닉 리딩 형식으로 변환하세요.
 
-설정:
-- 강도: ${settings.intensity}
-- 언어: ${settings.language === 'auto' ? '자동 감지' : settings.language}
+  const prompt = detectedLanguage === 'ko' ? `
+텍스트 읽기를 돕기 위해 일부 단어의 앞부분만 굵게 만들어주세요.
 
-한국어 규칙:
-1. 2-3음절 단어: 첫 음절만 강조
-2. 4음절 이상: 의미 단위로 나누어 각 단위의 첫 부분 강조
-3. 조사와 어미는 강조하지 않음
-4. 명사와 동사의 어근 위주로 강조
+규칙:
+- 중요한 명사와 동사의 앞부분에만 <b> 태그 추가
+- 조사(은/는/이/가/을/를/에/서/로 등)는 굵게 하지 않음
+- 접속사, 부사, 짧은 단어(1-2글자)는 굵게 하지 않음
+- 전체 단어의 약 40-50%만 강조
 
-영어 규칙:
-1. 짧은 단어(2-3글자): 첫 글자만
-2. 중간 길이(4-7글자): 40-50% 강조
-3. 긴 단어(8글자 이상): 첫 3-4글자 강조
-4. 관사, 전치사는 최소 강조
-
-강조 부분은 HTML <b> 태그로 감싸주세요.
+좋은 예시:
+입력: 기능 목적으로 사용되는 쿠키 및 이와 유사한 기술
+출력: <b>기능</b> <b>목적</b>으로 <b>사용</b>되는 <b>쿠키</b> 및 이와 <b>유사</b>한 <b>기술</b>
 
 텍스트:
 ${text}
-`;
+
+결과:` : `
+Help improve text readability by making the beginning of important words bold.
+
+Rules:
+- Add <b> tags to the first part of important nouns and verbs only
+- Skip articles (a, an, the), prepositions, and short words
+- Emphasize about 40-50% of words
+
+Good example:
+Input: Users can access basic features of the service
+Output: <b>Use</b>rs can <b>acc</b>ess <b>bas</b>ic <b>feat</b>ures of the <b>ser</b>vice
+
+Text:
+${text}
+
+Result:`;
 
   try {
     const result = await model.generateContent(prompt);
-    const response = await result.response;
-    return response.text();
+    const response = result.response;
+    let convertedText = response.text();
+    
+    // 불필요한 마크다운 제거
+    convertedText = convertedText.replace(/```html\n?/g, '').replace(/```\n?/g, '');
+    convertedText = convertedText.replace(/^\s*/, '').replace(/\s*$/, '');
+    
+    return convertedText;
   } catch (error) {
     console.error('Gemini API 오류:', error);
-    throw new Error('변환 중 오류가 발생했습니다.');
+    throw new Error('AI 변환 중 오류가 발생했습니다. 다시 시도해주세요.');
   }
 }
