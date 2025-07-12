@@ -10,6 +10,7 @@ import {
   ArrowRight,
   Zap
 } from "lucide-react";
+import KakaoLoginButton from "@/components/KakaoLoginButton";
 import Link from "next/link";
 
 export default function Start() {
@@ -100,11 +101,7 @@ export default function Start() {
                     </div>
                   </div>
 
-                  <Button variant="outline" className="w-full group-hover:bg-muted transition-colors" disabled>
-                    <LogIn className="w-4 h-4 mr-2" />
-                    로그인하기
-                    <span className="ml-2 text-xs">(준비중)</span>
-                  </Button>
+                  <KakaoLoginButton />
                 </CardContent>
               </Card>
             </div>
