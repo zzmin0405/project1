@@ -1,8 +1,37 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Eye, Github } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
+import { useEffect, useState } from "react";
+import { User } from "@supabase/supabase-js";
 
 export function Navbar() {
+  const [user, setUser] = useState<User | null>(null);
+  const supabase = createClient();
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data } = await supabase.auth.getUser();
+      setUser(data.user);
+    };
+    checkUser();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, [supabase.auth]);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    // onAuthStateChange will handle setting user to null
+  };
+
   return (
     <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -23,9 +52,20 @@ export function Navbar() {
               <Github className="w-4 h-4" />
             </Link>
           </Button>
-          <Button size="sm" asChild>
-            <Link href="/start">시작하기</Link>
-          </Button>
+          {user ? (
+            <>
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/mypage">마이페이지</Link>
+              </Button>
+              <Button size="sm" onClick={handleLogout}>
+                로그아웃
+              </Button>
+            </>
+          ) : (
+            <Button size="sm" asChild>
+              <Link href="/start">시작하기</Link>
+            </Button>
+          )}
         </div>
       </nav>
     </header>

@@ -5,11 +5,14 @@ export async function createClient() {
   const cookieStore = await cookies()
 
   return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
     {
       cookies: {
         getAll() {
+          // DEBUGGING: Log the values being used
+          console.log('Supabase Server URL:', process.env.SUPABASE_URL);
+          console.log('Supabase Service Role Key (first 5 chars):', process.env.SUPABASE_SERVICE_ROLE_KEY?.substring(0, 5));
           return cookieStore.getAll()
         },
         setAll(cookiesToSet) {
