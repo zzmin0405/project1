@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import LoginRequired from "@/components/auth/LoginRequired";
 
 export default async function MyPage() {
   const supabase = await createClient();
@@ -9,7 +10,7 @@ export default async function MyPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/start"); // 로그인하지 않았다면 시작 페이지로 리디렉션
+    return <LoginRequired />;
   }
 
   return (
