@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import { 
   Sparkles, 
   User, 
-  LogIn,
   ArrowRight,
   Zap
 } from "lucide-react";
