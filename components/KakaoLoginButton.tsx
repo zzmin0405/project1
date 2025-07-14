@@ -1,24 +1,59 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/client";
+import { useEffect, useState } from "react";
 
 export default function KakaoLoginButton() {
+  const [authUrl, setAuthUrl] = useState<string | null>(null);
+  const supabase = createClient();
+
+  useEffect(() => {
+    const getKakaoAuthUrl = async () => {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'kakao',
+        options: {
+          // We use redirectTo here, but we won't redirect immediately.
+          // We're just using this to get the generated URL from Supabase.
+          redirectTo: `${location.origin}/auth/callback`,
+          // IMPORTANT: We ask Supabase to skip the redirect 
+          // so we can get the URL and modify it if needed.
+          skipBrowserRedirect: true,
+        },
+      });
+
+      if (data.url) {
+        // Supabase gives us the full URL. Now we can ensure the scopes are correct.
+        const url = new URL(data.url);
+        // We will explicitly set the scopes, ensuring email is included.
+        url.searchParams.set('scope', 'profile_nickname,profile_image,account_email');
+        setAuthUrl(url.toString());
+      } else if (error) {
+        console.error("Error getting Kakao auth URL:", error);
+      }
+    };
+
+    getKakaoAuthUrl();
+  }, [supabase.auth]);
+
   const handleLogin = () => {
-    // 1. 환경 변수에서 카카오 REST API 키를 가져옵니다.
-    const KAKAO_CLIENT_ID = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID;
-    // 2. 로그인 후 돌아올 리디렉션 URI를 설정합니다.
-    const REDIRECT_URI = `${location.origin}/auth/callback`;
-
-    // 3. 필수 파라미터를 포함하여 카카오 로그인 URL을 직접 생성합니다.
-    const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=profile_nickname,profile_image`;
-
-    // 4. 생성된 URL로 사용자를 리디렉션시킵니다.
-    window.location.href = kakaoAuthUrl;
+    if (authUrl) {
+      window.location.href = authUrl;
+    } else {
+      // Fallback or error handling
+      alert("카카오 로그인에 문제가 발생했습니다. 잠시 후 다시 시도해주세요.");
+    }
   };
 
   return (
-    <Button onClick={handleLogin} className="w-full bg-[#FEE500] text-black hover:bg-[#FEE500]/90">
+    <Button 
+      onClick={handleLogin} 
+      disabled={!authUrl}
+      className="w-full bg-[#FEE500] text-black hover:bg-[#FEE500]/90"
+    >
       카카오로 로그인하기
     </Button>
   );
 }
+''
+
