@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { 
   Sparkles, 
   Copy, 
@@ -13,16 +14,14 @@ import {
 } from "lucide-react";
 import { convertToBionic } from "@/lib/gemini/client";
 
+type Intensity = "light" | "medium" | "strong";
+
 export default function Converter() {
   const [inputText, setInputText] = useState("");
   const [convertedText, setConvertedText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  // 기본 설정 (고정)
-  const settings = {
-    intensity: 'medium' as const,
-    language: 'auto' as const
-  };
-
+  const [intensity, setIntensity] = useState<Intensity>("medium");
+  
   const handleConvert = async () => {
     if (!inputText.trim()) return;
     
@@ -31,8 +30,8 @@ export default function Converter() {
     
     try {
       const result = await convertToBionic(inputText, {
-        intensity: settings.intensity,
-        language: settings.language
+        intensity: intensity,
+        language: "auto"
       });
       setConvertedText(result);
     } catch (error) {
@@ -65,20 +64,34 @@ export default function Converter() {
 
 
   return (
-    <div className="bg-background min-h-screen">
+    <div className="bg-background">
       {/* Main Content */}
       <section className="py-6">
         <div className="px-6">
           <div className="max-w-none">
 
             {/* Main Split View */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-[calc(100vh-120px)]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 min-h-[calc(100vh-200px)]">
               {/* Left: Input Area */}
               <Card className="flex flex-col">
                 <CardHeader className="flex-none">
                   <div className="flex items-center justify-between">
                     <CardTitle>원본 텍스트</CardTitle>
-                    <div className="flex gap-2">
+                    <div className="flex items-center gap-2">
+                      <ToggleGroup 
+                        type="single" 
+                        size="sm"
+                        value={intensity}
+                        onValueChange={(value: Intensity) => {
+                          if (value) setIntensity(value);
+                        }}
+                        aria-label="변환 강도"
+                      >
+                        <ToggleGroupItem value="light" aria-label="약하게">약하게</ToggleGroupItem>
+                        <ToggleGroupItem value="medium" aria-label="중간">중간</ToggleGroupItem>
+                        <ToggleGroupItem value="strong" aria-label="강하게">강하게</ToggleGroupItem>
+                      </ToggleGroup>
+
                       <Button 
                         onClick={handleConvert}
                         disabled={!inputText.trim() || isLoading}

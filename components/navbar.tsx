@@ -57,8 +57,11 @@ export function Navbar() {
               <Button variant="ghost" size="sm" asChild>
                 <Link href="/mypage">마이페이지</Link>
               </Button>
-              <Button size="sm" onClick={handleLogout}>
+              <Button variant="outline" size="sm" onClick={handleLogout}>
                 로그아웃
+              </Button>
+              <Button size="sm" asChild>
+                <Link href="/converter">시작하기</Link>
               </Button>
             </>
           ) : (
