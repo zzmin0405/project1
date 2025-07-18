@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from "@/components/ui/button";
@@ -15,7 +15,7 @@ import {
 import KakaoLoginButton from "@/components/KakaoLoginButton";
 import Link from "next/link";
 
-export default function Start() {
+function StartContent() {
   const router = useRouter();
   const supabase = createClient();
 
@@ -131,5 +131,13 @@ export default function Start() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function Start() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <StartContent />
+    </Suspense>
   );
 }
