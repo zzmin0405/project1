@@ -10,7 +10,7 @@ const postSchema = z.object({
 });
 
 export async function POST(request: Request) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   // 1. 사용자 인증 확인
   const {
@@ -42,7 +42,7 @@ export async function POST(request: Request) {
   } catch (e) {
     // Zod 유효성 검사 실패 시
     if (e instanceof z.ZodError) {
-      return NextResponse.json({ error: e.errors }, { status: 400 });
+      return NextResponse.json({ error: e.issues }, { status: 400 });
     }
     console.error('알 수 없는 에러:', e);
     return NextResponse.json({ error: '잘못된 요청입니다.' }, { status: 400 });

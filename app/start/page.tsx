@@ -1,19 +1,35 @@
 "use client";
 
+import { useEffect, Suspense } from 'react';
+import { useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
   Sparkles, 
   User, 
-  LogIn,
   ArrowRight,
   Zap
 } from "lucide-react";
 import KakaoLoginButton from "@/components/KakaoLoginButton";
 import Link from "next/link";
 
-export default function Start() {
+function StartContent() {
+  const router = useRouter();
+  const supabase = createClient();
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        router.replace('/converter');
+      }
+    };
+
+    checkSession();
+  }, [router, supabase]);
+
   return (
     <div className="bg-background min-h-screen">
       {/* Main Content */}
@@ -115,5 +131,13 @@ export default function Start() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function Start() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <StartContent />
+    </Suspense>
   );
 }

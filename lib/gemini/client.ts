@@ -8,6 +8,19 @@ function detectLanguage(text: string): 'ko' | 'en' {
   return koreanRegex.test(text) ? 'ko' : 'en';
 }
 
+const intensityRules = {
+  ko: {
+    light: '- 전체 단어의 약 20-30%만 강조',
+    medium: '- 전체 단어의 약 40-50%만 강조',
+    strong: '- 전체 단어의 약 60-70%만 강조',
+  },
+  en: {
+    light: '- Emphasize about 20-30% of words',
+    medium: '- Emphasize about 40-50% of words',
+    strong: '- Emphasize about 60-70% of words',
+  },
+};
+
 export async function convertToBionic(
   text: string, 
   settings: {
@@ -18,6 +31,8 @@ export async function convertToBionic(
   const detectedLanguage = settings.language === 'auto' ? detectLanguage(text) : settings.language;
   const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
+  const intensityRule = intensityRules[detectedLanguage][settings.intensity];
+
   const prompt = detectedLanguage === 'ko' ? `
 텍스트 읽기를 돕기 위해 일부 단어의 앞부분만 굵게 만들어주세요.
 
@@ -25,7 +40,7 @@ export async function convertToBionic(
 - 중요한 명사와 동사의 앞부분에만 <b> 태그 추가
 - 조사(은/는/이/가/을/를/에/서/로 등)는 굵게 하지 않음
 - 접속사, 부사, 짧은 단어(1-2글자)는 굵게 하지 않음
-- 전체 단어의 약 40-50%만 강조
+${intensityRule}
 
 좋은 예시:
 입력: 기능 목적으로 사용되는 쿠키 및 이와 유사한 기술
@@ -40,7 +55,7 @@ Help improve text readability by making the beginning of important words bold.
 Rules:
 - Add <b> tags to the first part of important nouns and verbs only
 - Skip articles (a, an, the), prepositions, and short words
-- Emphasize about 40-50% of words
+${intensityRule}
 
 Good example:
 Input: Users can access basic features of the service
