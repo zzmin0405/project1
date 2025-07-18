@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Eye, Github } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
@@ -10,6 +11,8 @@ import { User } from "@supabase/supabase-js";
 export function Navbar() {
   const [user, setUser] = useState<User | null>(null);
   const supabase = createClient();
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const checkUser = async () => {
@@ -29,7 +32,7 @@ export function Navbar() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    // onAuthStateChange will handle setting user to null
+    router.push("/");
   };
 
   return (
@@ -60,13 +63,17 @@ export function Navbar() {
               <Button variant="outline" size="sm" onClick={handleLogout}>
                 로그아웃
               </Button>
-              <Button size="sm" asChild>
-                <Link href="/converter">시작하기</Link>
-              </Button>
+              {pathname !== "/converter" && (
+                <Button size="sm" asChild>
+                  <Link href="/converter">시작하기</Link>
+                </Button>
+              )}
             </>
           ) : (
             <Button size="sm" asChild>
-              <Link href="/start">시작하기</Link>
+              <Link href={pathname === "/converter" ? "/start?redirect_to=/converter" : "/start"}>
+                {pathname === "/converter" ? "로그인" : "시작하기"}
+              </Link>
             </Button>
           )}
         </div>

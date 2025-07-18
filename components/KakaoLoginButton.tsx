@@ -4,28 +4,30 @@ import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { useEffect, useState } from "react";
 
+import { useSearchParams } from "next/navigation";
+
 export default function KakaoLoginButton() {
   const [authUrl, setAuthUrl] = useState<string | null>(null);
   const supabase = createClient();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const getKakaoAuthUrl = async () => {
+      const redirectToParam = searchParams.get("redirect_to");
+      const redirectTo = redirectToParam 
+        ? `${location.origin}/auth/callback?redirect_to=${encodeURIComponent(redirectToParam)}`
+        : `${location.origin}/auth/callback`;
+
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'kakao',
         options: {
-          // We use redirectTo here, but we won't redirect immediately.
-          // We're just using this to get the generated URL from Supabase.
-          redirectTo: `${location.origin}/auth/callback`,
-          // IMPORTANT: We ask Supabase to skip the redirect 
-          // so we can get the URL and modify it if needed.
+          redirectTo: redirectTo,
           skipBrowserRedirect: true,
         },
       });
 
       if (data.url) {
-        // Supabase gives us the full URL. Now we can ensure the scopes are correct.
         const url = new URL(data.url);
-        // We will explicitly set the scopes, ensuring email is included.
         url.searchParams.set('scope', 'profile_nickname,profile_image,account_email');
         setAuthUrl(url.toString());
       } else if (error) {
@@ -34,7 +36,7 @@ export default function KakaoLoginButton() {
     };
 
     getKakaoAuthUrl();
-  }, [supabase.auth]);
+  }, [supabase.auth, searchParams]);
 
   const handleLogin = () => {
     if (authUrl) {
