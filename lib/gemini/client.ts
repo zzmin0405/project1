@@ -81,3 +81,41 @@ Result:`;
     throw new Error('AI 변환 중 오류가 발생했습니다. 다시 시도해주세요.');
   }
 }
+
+// PDF에서 텍스트 추출을 위한 새로운 함수
+export async function extractTextFromPdf(fileBuffer: Buffer, mimeType: string) {
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+  const prompt = "이 PDF 파일에서 서식을 최대한 유지하면서 모든 텍스트를 추출해줘.";
+
+  try {
+    const result = await model.generateContent([
+      prompt,
+      {
+        inlineData: {
+          data: fileBuffer.toString("base64"),
+          mimeType: mimeType,
+        },
+      },
+    ]);
+    const response = result.response;
+    return response.text();
+  } catch (error) {
+    console.error('Gemini PDF 추출 오류:', error);
+    throw new Error('Gemini API를 통해 PDF 텍스트를 추출하는 중 오류가 발생했습니다.');
+  }
+}
+
+export async function summarizeText(text: string) {
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const prompt = `아래 텍스트를 한국어로 3개의 핵심 불렛포인트(•)로 요약해줘.\n\n텍스트:\n${text}`;
+
+  try {
+    const result = await model.generateContent(prompt);
+    const response = result.response;
+    return response.text();
+  } catch (error) {
+    console.error('Gemini 요약 오류:', error);
+    throw new Error('Gemini API를 통해 텍스트를 요약하는 중 오류가 발생했습니다.');
+  }
+}

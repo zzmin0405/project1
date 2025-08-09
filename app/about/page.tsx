@@ -577,10 +577,10 @@ export default function About() {
                 </Button>
               </Link>
               <Link href="https://github.com/lambda0x63/nungil" target="_blank">
-                <Button size="lg" variant="outline" className="px-8">
+                {/* <Button size="lg" variant="outline" className="px-8">
                   <Eye className="mr-2 h-5 w-5" />
                   GitHub 방문하기
-                </Button>
+                </Button> */}
               </Link>
             </div>
           </div>

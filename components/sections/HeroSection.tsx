@@ -126,10 +126,10 @@ export function HeroSection() {
             </Button>
           </Link>
           <Link href="https://github.com/lambda0x63/nungil" target="_blank" className="w-full sm:w-auto">
-            <Button size="lg" variant="outline" className="w-full sm:w-auto px-6 sm:px-8 hover-lift">
+            {/* <Button size="lg" variant="outline" className="w-full sm:w-auto px-6 sm:px-8 hover-lift">
               <Eye className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
               소스코드 보기
-            </Button>
+            </Button> */}
           </Link>
         </div>
       </div>
