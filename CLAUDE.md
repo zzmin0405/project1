@@ -47,7 +47,7 @@ The application implements Korean-specific bionic reading rules:
 **Environment Variables Required:**
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `NEXT_PUBLIC_GEMINI_API_KEY` (for AI text conversion)
+- `GEMINI_API_KEYS` (for AI text conversion)
 
 **Styling Patterns:**
 - Uses Korean-optimized typography with Pretendard font

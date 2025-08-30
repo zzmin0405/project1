@@ -1,21 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Eye, Github, LogOut } from "lucide-react";
+import { Eye, LogOut, Settings } from "lucide-react"; // Import Settings icon
 import { createClient } from "@/lib/supabase/client";
 import { useEffect, useState } from "react";
 import { User } from "@supabase/supabase-js";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { PersonalizationSettingsModal } from "@/components/PersonalizationSettingsModal"; // Import the modal
 
 export function Navbar() {
   const [user, setUser] = useState<User | null>(null);
   const [authUrl, setAuthUrl] = useState<string | null>(null);
+  const [showPersonalizationModal, setShowPersonalizationModal] = useState(false); // State for modal
   const supabase = createClient();
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     const checkUser = async () => {
@@ -71,8 +72,11 @@ export function Navbar() {
           <Eye className="w-6 h-6" />
           <span className="font-bold text-lg">눈길</span>
         </Link>
-        
+
         <div className="flex items-center gap-4">
+          <Link href="/converter">
+            <Button variant="ghost" size="sm">시작하기</Button>
+          </Link>
           <Link href="/about">
             <Button variant="ghost" size="sm">소개</Button>
           </Link>
@@ -86,6 +90,16 @@ export function Navbar() {
           </Button> */}
           {user ? (
             <div className="flex items-center gap-3">
+              {/* Personalization Button */}
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setShowPersonalizationModal(true)}
+                title="개인화 설정"
+              >
+                <Settings className="w-4 h-4" />
+              </Button>
+
               <Link href="/mypage">
                 <Avatar className="h-8 w-8 cursor-pointer">
                   <AvatarImage src={user.user_metadata.avatar_url} alt={user.user_metadata.name} />
@@ -108,6 +122,11 @@ export function Navbar() {
           )}
         </div>
       </nav>
+      {/* Personalization Modal */}
+      <PersonalizationSettingsModal
+        isOpen={showPersonalizationModal}
+        onClose={() => setShowPersonalizationModal(false)}
+      />
     </header>
   );
 }

@@ -1,18 +1,88 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY!);
+
+// 1. 키 관리 로직
+const apiKeys = (process.env.GEMINI_API_KEYS || '').split(',').filter(k => k.trim());
+if (apiKeys.length === 0) {
+  console.error('Gemini API keys not found in .env.local. Please set GEMINI_API_KEYS.');
+}
+
+let currentKeyIndex = 0;
+
+/**
+ * 현재 활성화된 API 키로 GoogleGenerativeAI 클라이언트 인스턴스를 가져옵니다.
+ */
+const getGenAIClient = () => {
+  if (apiKeys.length === 0) {
+    throw new Error('No Gemini API keys configured.');
+  }
+  const apiKey = apiKeys[currentKeyIndex];
+  return new GoogleGenerativeAI(apiKey);
+};
+
+/**
+ * 다음 API 키로 순환시킵니다. 사용량 초과 오류 발생 시 호출됩니다.
+ */
+const rotateKey = () => {
+  if (apiKeys.length > 1) {
+    const oldKeyIndex = currentKeyIndex;
+    currentKeyIndex = (currentKeyIndex + 1) % apiKeys.length;
+    console.log(`Gemini API key quota likely exceeded. Rotated from key index ${oldKeyIndex} to ${currentKeyIndex}.`);
+  } else {
+    console.warn('Gemini API key quota likely exceeded, but no other keys to rotate to.');
+  }
+};
+
+/**
+ * API 호출을 재시도하는 로직을 포함한 래퍼 함수
+ * @param apiCall API를 호출하는 실제 함수
+ * @param retries 남은 재시도 횟수
+ */
+async function resilientApiCall<T>(apiCall: (client: GoogleGenerativeAI) => Promise<T>, retries = apiKeys.length): Promise<T> {
+  if (apiKeys.length === 0) {
+    throw new Error('Cannot make API call without API keys.');
+  }
+
+  try {
+    const client = getGenAIClient();
+    return await apiCall(client);
+  } catch (error: unknown) {
+    let errorMessage = '';
+    if (error instanceof Error) {
+        errorMessage = error.message;
+    } else if (typeof error === 'string') {
+        errorMessage = error;
+    } else {
+        errorMessage = String(error);
+    }
+
+    const isQuotaError = (errorMessage && (errorMessage.includes('429') || /quota|exhausted/i.test(errorMessage))) || /quota|exhausted/i.test(String(error));
+
+    if (isQuotaError && retries > 0) {
+      console.warn(`Quota error detected. Retrying with the next key. Retries left: ${retries - 1}`);
+      rotateKey();
+      const nextClient = getGenAIClient();
+      return await apiCall(nextClient);
+    } else {
+      throw error;
+    }
+  }
+}
+
+
+// --- 기존 함수들을 새로운 resilientApiCall 래퍼로 수정 ---
 
 // 언어 감지
 function detectLanguage(text: string): 'ko' | 'en' {
-  const koreanRegex = /[\uAC00-\uD7A3]/;
+  const koreanRegex = /[가-힣]/;
   return koreanRegex.test(text) ? 'ko' : 'en';
 }
 
 const intensityRules = {
   ko: {
-    light: '- 전체 단어의 약 20-30%만 강조',
-    medium: '- 전체 단어의 약 40-50%만 강조',
-    strong: '- 전체 단어의 약 60-70%만 강조',
+    light: '- 전체 단어의 약 40-50%만 강조',
+    medium: '- 전체 단어의 약 60-70%만 강조',
+    strong: '- 전체 단어의 약 70-80%만 강조',
   },
   en: {
     light: '- Emphasize about 20-30% of words',
@@ -28,12 +98,11 @@ export async function convertToBionic(
     language: 'ko' | 'en' | 'auto';
   }
 ) {
-  const detectedLanguage = settings.language === 'auto' ? detectLanguage(text) : settings.language;
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-
-  const intensityRule = intensityRules[detectedLanguage][settings.intensity];
-
-  const prompt = detectedLanguage === 'ko' ? `
+  return resilientApiCall(async (genAI) => {
+    const detectedLanguage = settings.language === 'auto' ? detectLanguage(text) : settings.language;
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const intensityRule = intensityRules[detectedLanguage][settings.intensity];
+    const prompt = detectedLanguage === 'ko' ? `
 텍스트 읽기를 돕기 위해 일부 단어의 앞부분만 굵게 만들어주세요.
 
 규칙:
@@ -66,56 +135,41 @@ ${text}
 
 Result:`;
 
-  try {
     const result = await model.generateContent(prompt);
     const response = result.response;
     let convertedText = response.text();
     
-    // 불필요한 마크다운 제거
     convertedText = convertedText.replace(/```html\n?/g, '').replace(/```\n?/g, '');
     convertedText = convertedText.replace(/^\s*/, '').replace(/\s*$/, '');
     
     return convertedText;
-  } catch (error) {
-    console.error('Gemini API 오류:', error);
-    throw new Error('AI 변환 중 오류가 발생했습니다. 다시 시도해주세요.');
-  }
+  });
 }
 
-// PDF에서 텍스트 추출을 위한 새로운 함수
 export async function extractTextFromPdf(fileBuffer: Buffer, mimeType: string) {
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-  const prompt = "이 PDF 파일에서 서식을 최대한 유지하면서 모든 텍스트를 추출해줘.";
-
-  try {
+  return resilientApiCall(async (genAI) => {
+    const model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      generationConfig: {
+        maxOutputTokens: 8192,
+      },
+    });
+    const prompt = "PDF에서 텍스트를 원본과 동일하게 추출합니다. 단, 문장별로 줄을 바꿔 가독성을 높이고, 논리적으로 연결된 문장들은 문단으로 그룹화해주세요. 내용의 정확성이 가장 중요합니다.절대로 원본 내용이 훼손 되어서는 안됩니다.";
+    
     const result = await model.generateContent([
       prompt,
-      {
-        inlineData: {
-          data: fileBuffer.toString("base64"),
-          mimeType: mimeType,
-        },
-      },
+      { inlineData: { data: fileBuffer.toString("base64"), mimeType: mimeType } },
     ]);
-    const response = result.response;
-    return response.text();
-  } catch (error) {
-    console.error('Gemini PDF 추출 오류:', error);
-    throw new Error('Gemini API를 통해 PDF 텍스트를 추출하는 중 오류가 발생했습니다.');
-  }
+    return result.response.text();
+  });
 }
 
 export async function summarizeText(text: string) {
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-  const prompt = `아래 텍스트를 한국어로 3개의 핵심 불렛포인트(•)로 요약해줘.\n\n텍스트:\n${text}`;
-
-  try {
+  return resilientApiCall(async (genAI) => {
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const prompt = `아래 텍스트를 한국어로 3개의 핵심 불렛포인트(•)로 요약해줘.\n\n텍스트:\n${text}`;
+    
     const result = await model.generateContent(prompt);
-    const response = result.response;
-    return response.text();
-  } catch (error) {
-    console.error('Gemini 요약 오류:', error);
-    throw new Error('Gemini API를 통해 텍스트를 요약하는 중 오류가 발생했습니다.');
-  }
+    return result.response.text();
+  });
 }

@@ -3,6 +3,9 @@ import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
 import { Analytics } from "@vercel/analytics/next"
+import { PersonalizationProvider } from "@/context/PersonalizationProvider"; // Import PersonalizationProvider
+// REMOVED: import { SessionProvider } from '@supabase/ssr/react';
+
 
 export const metadata: Metadata = {
   title: "눈길(Nungil) - AI 기반 바이오닉 리딩",
@@ -14,6 +17,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // const supabase = createClient(); // No longer needed here as PersonalizationProvider creates its own client
+
   return (
     <html lang="ko">
       <head>
@@ -25,13 +30,17 @@ export default function RootLayout({
         />
       </head>
       <body className="font-pretendard">
-        <div className="min-h-screen flex flex-col">
-          <Navbar />
-          <main className="flex-1">
-            {children}
-          </main>
-          <Footer />
-        </div>
+        {/* REMOVED: <SessionProvider supabaseClient={supabase}> */}
+          <PersonalizationProvider>
+            <div className="min-h-screen flex flex-col">
+              <Navbar />
+              <main className="flex-1">
+                {children}
+              </main>
+              <Footer />
+            </div>
+          </PersonalizationProvider>
+        {/* REMOVED: </SessionProvider> */}
         <Analytics />
       </body>
     </html>

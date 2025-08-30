@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, Suspense } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from "@/components/ui/button";
@@ -10,25 +10,48 @@ import {
   Sparkles, 
   User, 
   ArrowRight,
-  Zap
+  Zap,
+  LoaderCircle
 } from "lucide-react";
 import KakaoLoginButton from "@/components/KakaoLoginButton";
 import Link from "next/link";
 
+function LoadingSpinner() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)]">
+      <LoaderCircle className="w-12 h-12 animate-spin text-primary" />
+      <p className="mt-4 text-muted-foreground">세션 정보를 확인 중입니다...</p>
+    </div>
+  );
+}
+
 function StartContent() {
   const router = useRouter();
-  const supabase = createClient();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        router.replace('/converter');
+      try {
+        const supabase = createClient();
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (session) {
+          router.replace('/converter');
+        } else {
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Error checking session:", error);
+        setLoading(false); // 에러 발생 시에도 로딩 상태 해제
       }
     };
 
     checkSession();
-  }, [router, supabase]);
+  }, [router]);
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="bg-background min-h-screen">
@@ -136,7 +159,7 @@ function StartContent() {
 
 export default function Start() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LoadingSpinner />}>
       <StartContent />
     </Suspense>
   );

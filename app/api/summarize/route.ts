@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { summarizeText } from '@/lib/gemini/client';
 
+// DB 관련 로직이 모두 제거되어, 순수 요약 기능만 수행합니다.
 export async function POST(request: Request) {
   try {
     const { text } = await request.json();
