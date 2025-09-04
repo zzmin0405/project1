@@ -5,6 +5,7 @@ const MAX_FILE_SIZE_MB = 10;
 const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
 
 export async function POST(request: Request) {
+  console.log("Request received at /api/extract-pdf");
   try {
     const formData = await request.formData();
     const file = formData.get('file') as File | null;

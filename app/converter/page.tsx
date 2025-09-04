@@ -305,7 +305,7 @@ export default function Converter() {
                         {isSummarizing ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Wand2 className="w-4 h-4 mr-2" />} AI 요약
                       </Button>
                       <Button variant="outline" size="sm" onClick={handleCopy} disabled={!convertedText}><Copy className="w-4 h-4 mr-2" /> 복사</Button>
-                      <Button variant="outline" size="sm" onClick={handleDownload} disabled={!convertedText}><Download className="w-4 h-4 mr-2" /> 다운로드</Button>
+                      <Button variant="outline" size="sm" onClick={handleDownload} disabled={!convertedText}><Download className="w-4 h-4 mr-2" /> HTML 다운로드</Button>
                     </div>
                   </div>
                 </CardHeader>

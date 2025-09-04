@@ -29,7 +29,7 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
         />
       </head>
-      <body className="font-pretendard">
+      <body className="font-pretendard" suppressHydrationWarning>
         {/* REMOVED: <SessionProvider supabaseClient={supabase}> */}
           <PersonalizationProvider>
             <div className="min-h-screen flex flex-col">

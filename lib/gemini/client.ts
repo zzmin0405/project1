@@ -100,7 +100,7 @@ export async function convertToBionic(
 ) {
   return resilientApiCall(async (genAI) => {
     const detectedLanguage = settings.language === 'auto' ? detectLanguage(text) : settings.language;
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash', generationConfig: { maxOutputTokens: 8192 } });
     const intensityRule = intensityRules[detectedLanguage][settings.intensity];
     const prompt = detectedLanguage === 'ko' ? `
 텍스트 읽기를 돕기 위해 일부 단어의 앞부분만 굵게 만들어주세요.

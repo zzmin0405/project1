@@ -27,7 +27,7 @@ export default async function SummaryDetailPage(props: any) {
   const { data: summary, error } = await supabase
     .from("summaries")
     .select("*")
-        .eq("id", (params as any).id)
+        .eq("id", params.id)
     .eq("user_id", user.id) // 본인의 기록만 볼 수 있도록 user_id 체크
     .single();
 
